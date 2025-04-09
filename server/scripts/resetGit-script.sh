@@ -1,7 +1,7 @@
 
 
 
-if ! grep -qxF "**/.env" .gitignore; then #check for the .env ignore in gitignore first
+if ! grep -qxF "**/.env" .gitignore; then #check for the .env in gitignore first so if not **/.env found in gitignore then
     echo "Adding .env to .gitignore"
     echo "**/.env" >> .gitignore     #adding all .envs to gitignore here
 
@@ -12,7 +12,7 @@ fi
 
 #Looking for .env files tha remain if exist we remove from git tracking
 
-if git ls-files --error-unmatch .env > /dev/null 2>&1; then #if .env found when we do ls-files start removing and also prevent error messages all over terminal with dev/null 2>&1  
+if git ls-files --error-unmatch .env > /dev/null 2>&1; then #look if git is tracking .env files if it is error with 1 and start removing,  '> /dev/null 2>&1;' keeps output cleaner
     echo "Removing .env from Git tracking..."
     git rm --cached .env
 

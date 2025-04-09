@@ -35,13 +35,6 @@ const poolPromise = async () => {
 
 
 
-  //remove eventually
-const poolPromise2 = new mssql.ConnectionPool(dbConfig).connect()
-.then(pool => {console.log(`Connected to database pool: ${pool}`); return pool})
-.catch(err => {
-    console.error('Database Connection Failed:', err);
-    process.exit(1); // Stop app if DB fails
-});
 
 
 module.exports = {mssql,poolPromise} //exported to index.js and repo
