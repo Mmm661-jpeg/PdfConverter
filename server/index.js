@@ -30,6 +30,13 @@ const protocol = process.env.PROTOCOL || "http";
 
 const theAdress = `${protocol}://${host}:${port}`;
 
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
+
+
 //DB set up then start server:
 
 
