@@ -39,6 +39,18 @@ jobs:
         echo "DB user set? ${DB_USER:+Yes}"
         echo "DB password set? ${DB_PASSWORD:+Yes}"
         echo "DB port set? ${DB_PORT:+Yes}"
+    
+    - name: Check Secrets
+      run: |
+        echo "DB_SERVER=${{ secrets.DB_SERVER }}"
+        echo "DB_NAME=${{ secrets.DB_NAME }}"
+        echo "DB_USER=${{ secrets.DB_USER }}"
+        echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
+        echo "DB_PORT=${{ secrets.DB_PORT }}"
+        echo "DB_ENCRYPT=${{ secrets.DB_ENCRYPT }}"
+        echo "DB_TRUST_SERVER_CERT=${{ secrets.DB_TRUST_SERVER_CERT }}"
+
+    
       
 
 
