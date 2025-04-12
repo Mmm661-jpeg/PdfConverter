@@ -41,14 +41,15 @@ jobs:
           npm install
   
      
-      - name: Zip artifact for deployment
-        run: zip -r release.zip ./* -x 'node_modules/*' -x '*.git/*' -x '*.log'
+      - name: Copy React Build to Server
+        run: |
+          cp -r client/build server/client-build
 
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: node-app
-          path: release.zip
+      - name: Zip artifact for deployment (only server, keep server node_modules)
+        run: |
+          cd server
+          zip -r ../release.zip . -x "**/client/node_modules/*" "**/client/.git/*" "**/*.log"
+
 
   deploy:
     runs-on: ubuntu-latest
