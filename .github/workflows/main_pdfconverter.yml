@@ -27,15 +27,26 @@ jobs:
         run: |
           cd client
           npm install
+  
+   
+      - name: Build Client (React)
+        run: |
+          cd client
+          npm run build
+  
 
       - name: Install Server Dependencies
         run: |
           cd server
           npm install
-       
-
-      - name: Zip artifact for deployment
-        run: zip -r release.zip ./* -x 'node_modules/*' -x '*.git/*' -x '*.log'
+  
+     
+      - name: Zip artifact for deployment (Including React Build)
+        run: |
+          cd server
+          zip -r ../release.zip ./* -x 'node_modules/*' -x '*.git/*' -x '*.log'
+          cd ../client
+          zip -r ../server/release.zip ./build/* -x 'node_modules/*' -x '*.git/*' -x '*.log'
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
