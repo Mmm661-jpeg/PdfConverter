@@ -9,6 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: production
+      DB_SERVER: ${{ secrets.DB_SERVER }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_PORT: ${{ secrets.DB_PORT }}
     
     steps:
     - name: Checkout code
@@ -20,13 +25,21 @@ jobs:
         node-version: '20'
 
     - name: Install dependencies
-      run: npm install mssql 
+      run: npm install mssql
+
+
+      
+    - name: Debug env setup
+      run:  |
+        echo "Cleanup is starting"
+        echo "DB server set? ${DB_SERVER:+Yes}"
+        echo "DB name set? ${DB_NAME:+Yes}"
+        echo "DB user set? ${DB_USER:+Yes}"
+        echo "DB password set? ${DB_PASSWORD:+Yes}"
+        echo "DB port set? ${DB_PORT:+Yes}"
+      
+
 
     - name: Run PDF Cleanup
       run: node scripts/cleanup.js 7
-      env:
-        DB_SERVER: ${{ secrets.DB_SERVER }}
-        DB_NAME: ${{ secrets.DB_NAME }}
-        DB_USER: ${{ secrets.DB_USER }}
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        DB_PORT: ${{ secrets.DB_PORT }}
+      
