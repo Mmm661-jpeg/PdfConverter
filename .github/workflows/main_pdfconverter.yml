@@ -43,7 +43,8 @@ jobs:
      
       - name: Copy React Build to Server
         run: |
-          cp -r ./client/build ./server/client-build
+          cp -r ./client/dist ./server/client-build
+        
         
 
       - name: Zip artifact for deployment (only server, keep server node_modules)
