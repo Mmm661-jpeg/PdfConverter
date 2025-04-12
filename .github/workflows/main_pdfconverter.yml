@@ -87,7 +87,7 @@ jobs:
 
       - name: Wait for SCM to be ready
         run: |
-          sleep 60
+          sleep 30
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp

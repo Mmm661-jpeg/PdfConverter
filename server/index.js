@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-path = require('path')
+const path = require('path')
 
 
 const {poolPromise} = require('./configurations/db');
@@ -16,7 +16,7 @@ const app = express();
 
 
 //Set up port
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080 ;
 
 //Middleware
 app.use(cors());
@@ -31,11 +31,6 @@ const protocol = process.env.PROTOCOL || "http";
 
 const theAdress = `${protocol}://${host}:${port}`;
 
-app.use(express.static(path.join(__dirname, 'client-build')));
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, 'client-build', 'index.html'));
-});
 
 //DB set up then start server:
 
@@ -55,6 +50,12 @@ const startServer = async () => {
     res.send("Welcome to the PDF Converter API!");
 });
 
+
+app.use(express.static(path.join(__dirname, 'client-build/dist')));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, 'client-build/dist', 'index.html'));
+}); 
 
   startServer(); //server starts
 
