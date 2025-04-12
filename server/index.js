@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+path = require('path')
 
 
 const {poolPromise} = require('./configurations/db');
@@ -30,12 +31,11 @@ const protocol = process.env.PROTOCOL || "http";
 
 const theAdress = `${protocol}://${host}:${port}`;
 
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, 'client-build')));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'client-build', 'index.html'));
 });
-
 
 //DB set up then start server:
 
