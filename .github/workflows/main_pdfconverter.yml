@@ -45,10 +45,16 @@ jobs:
         run: |
           cp -r client/build server/client-build
 
-      - name: Zip artifact for deployment (only server, keep server node_modules)
-        run: |
-          cd server
-          zip -r ../release.zip . -x "**/client/node_modules/*" "**/client/.git/*" "**/*.log"
+          - name: Zip artifact for deployment (only server, keep server node_modules)
+          run: |
+            cd server
+            zip -r ../release.zip . -x "**/node_modules/*" "**/.git/*" "**/*.log"
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+            name: node-app
+            path: release.zip
 
 
   deploy:
