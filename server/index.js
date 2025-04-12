@@ -35,13 +35,15 @@ const theAdress = `${protocol}://${host}:${port}`;
 //DB set up then start server:
 
 
-const startServer = async () => {
+const startDBServer = async () => {
     try {
+
       await poolPromise(); // await DB connection 
-      app.listen(port, () => console.log(`✅ Server running on port ${port} adress: ${theAdress}`));
+      console.log("Database connected!");
+     
     } catch (err) {
       console.error('Database connection failed:', err);
-      process.exit(1); // stop app if DB fails
+     
     }
   };
 
@@ -57,7 +59,14 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, 'client-build/dist', 'index.html'));
 }); 
 
-  startServer(); //server starts
+
+app.listen(process.env.PORT || 8080, () => {
+  console.log("✅ Server running...");
+  startDBServer(); 
+});
+
+
+
 
 
 
