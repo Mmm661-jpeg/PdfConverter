@@ -41,5 +41,6 @@ jobs:
 
 
     - name: Run PDF Cleanup
-      run: node server/scripts/cleanup.js 7
+      run: node scripts/cleanup.js 7
+      working-directory: server
       
